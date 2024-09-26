@@ -3,25 +3,14 @@
     <h1>ログイン</h1>
     <form @submit.prevent = "login">
       <div class = "form-group">
-        <label for = "userName">ユーザー名</label>
+        <label for = "userIdentifier">ユーザー名もしくはメールアドレス</label>
         <input
             type = "text"
-            id = "userName"
-            v-model="userName"
-            :class = "{ 'is-invalid': userNameError }"
+            id = "userIdentifier"
+            v-model="userIdentifier"
+            :class = "{ 'is-invalid': userIdentifierError }"
         />
-        <span v-if = "userNameError" class = "error-message">{{ userNameError }}</span>
-      </div>
-
-      <div >
-        <label for = "email">メールアドレス</label>
-        <input
-            type = "text"
-            id = "email"
-            v-model = "email"
-            :class = "{ 'is-invalid' : emailError}"
-        />
-        <span v-if="emailError" class="error-message">{{ emailError }}</span>
+        <span v-if = "userIdentifierError" class = "error-message">{{ userIdentifierError }}</span>
       </div>
 
       <div class="form-group">
@@ -47,49 +36,31 @@ import router from '@/router';
 
 export default defineComponent({
   setup() {
-    const userName = ref<string>('');
+    const userIdentifier = ref<string>('');
     const password = ref<string>('');
-    const email = ref<string>('');
-    const userNameError = ref<string>('');
+    const userIdentifierError = ref<string>('');
     const passwordError = ref<string>('');
     const emailError = ref<string>('');
 
     const validateForm = (): boolean => {
       debugger
       let valid = true;
-      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-
-      if (!userName.value) {
-        userNameError.value = 'ユーザー名を入力してください。';
+      if (!userIdentifier.value) {
+        userIdentifierError.value = 'ユーザー名もしくはメールアドレスを入力してください。';
         valid = false;
-      }
-      else if (userName.value.length < 4 || userName.value.length > 30) {
-        userNameError.value = 'ユーザー名は4文字以上30文字以内で入力して下さい。'
       }
 
       if (!password.value) {
         passwordError.value = 'パスワードを入力して下さい。';
         valid = false;
-      } else if (password.value.length < 8 || password.value.length > 20) {
-        passwordError.value = 'パスワードは8文字以上20文字以内で入力してください。';
-        valid = false;
       }
 
-      if(!email.value) {
-        emailError.value = 'メールアドレスを入力して下さい。'
-        valid = false;
-        //TODO メールアドレスの形かどうか
-      }
-      else if (!emailPattern.test(email.value)) {
-        emailError.value = '正しいメールアドレスを入力してください。'
-        valid = false;
-      }
       return valid;
     };
 
     const clearErrors = (): void => {
-      userNameError.value = '';
+      userIdentifierError.value = '';
       passwordError.value = '';
       emailError.value = '';
     };
@@ -98,9 +69,8 @@ export default defineComponent({
       clearErrors();
       if (validateForm()) {
         try {
-          //TODO userIdentifierちゃんとする
           const req: LoginRequest = {
-            userIdentifier: userName.value,
+            userIdentifier: userIdentifier.value,
             password: password.value
           }
           const res: LoginResponse = await LoginService.login(req);
@@ -108,7 +78,7 @@ export default defineComponent({
           localStorage.setItem('userId', res.userId.toString());
           localStorage.setItem('token', res.token);
 
-          router.push('/');
+          await router.push('/');
         }
         catch (error) {
           //TODO エラーハンドリング
@@ -118,10 +88,9 @@ export default defineComponent({
     };
 
     return {
-      userName,
+      userIdentifier,
       password,
-      email,
-      userNameError,
+      userIdentifierError,
       passwordError,
       emailError,
       login,
