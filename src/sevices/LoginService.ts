@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-interface LoginRequest {
+export interface LoginRequest {
     userIdentifier: string;
     password: string;
 }
 
-interface LoginResponse {
+export interface LoginResponse {
     userId: bigint;
     token: string;
 }

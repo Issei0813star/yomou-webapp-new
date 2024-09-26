@@ -42,7 +42,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import LoginService from "@/sevices/LoginService";
+import LoginService, {LoginRequest, LoginResponse} from "@/sevices/LoginService";
+import router from '@/router';
 
 export default defineComponent({
   setup() {
@@ -93,11 +94,21 @@ export default defineComponent({
       emailError.value = '';
     };
 
-    const login = (): void => {
+    const login = async (): Promise<void> => {
       clearErrors();
       if (validateForm()) {
         try {
-          LoginService.login({userIdentifier: userName.value, password: password.value})
+          //TODO userIdentifierちゃんとする
+          const req: LoginRequest = {
+            userIdentifier: userName.value,
+            password: password.value
+          }
+          const res: LoginResponse = await LoginService.login(req);
+
+          localStorage.setItem('userId', res.userId.toString());
+          localStorage.setItem('token', res.token);
+
+          router.push('/');
         }
         catch (error) {
           //TODO エラーハンドリング
