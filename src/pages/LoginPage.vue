@@ -33,6 +33,7 @@
 import { defineComponent, ref } from 'vue';
 import LoginService, {LoginRequest, LoginResponse} from "@/sevices/LoginService";
 import router from '@/router';
+import { useToast } from 'vue-toastification'
 
 export default defineComponent({
   setup() {
@@ -41,6 +42,7 @@ export default defineComponent({
     const userIdentifierError = ref<string>('');
     const passwordError = ref<string>('');
     const emailError = ref<string>('');
+    const toast = useToast();
 
     const validateForm = (): boolean => {
       debugger
@@ -82,10 +84,15 @@ export default defineComponent({
         }
         catch (error) {
           //TODO エラーハンドリング
+          errorToast();
           console.error(error);
         }
       }
     };
+
+    const errorToast = () => {
+      toast.error("error");
+    }
 
     return {
       userIdentifier,
@@ -94,6 +101,7 @@ export default defineComponent({
       passwordError,
       emailError,
       login,
+      errorToast
     };
   }
 });
