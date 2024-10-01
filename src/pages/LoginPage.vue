@@ -23,6 +23,7 @@
             placeholder="パスワード"
         />
         <span v-if="passwordError" class="text-red-500 text-sm mt-1">{{ passwordError }}</span>
+        <div class="text-blue-600 text-right text-xs mt-1">パスワードを忘れた場合</div>
       </div>
 
       <button
@@ -32,6 +33,15 @@
         ログイン
       </button>
     </form>
+
+    <div class="w-full max-w-md mt-4">
+      <button
+          type="button"
+          class="w-[calc(100%*2/3)] bg-white text-blue-600 font-semibold my-5 py-2 border border-blue-600 rounded-md hover:bg-blue-100 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        新しいアカウントを作成
+      </button>
+    </div>
   </div>
 </template>
 
