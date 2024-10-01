@@ -1,9 +1,8 @@
 <template>
   <div class="flex flex-col items-center justify-center min-h-screen bg-blue-50">
-    <h1 class="text-3xl font-extrabold text-blue-600 mb-6">ログイン</h1>
     <form @submit.prevent="login" class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
       <div class="form-group mb-6">
-        <label for="userIdentifier" class="block text-sm font-semibold text-gray-700">ユーザー名またはメールアドレス</label>
+        <label for="userIdentifier" class="block text-left mb-2 text-sm font-semibold text-gray-700">ユーザー名またはメールアドレス</label>
         <input
             type="text"
             id="userIdentifier"
@@ -15,7 +14,7 @@
       </div>
 
       <div class="form-group mb-6">
-        <label for="password" class="block text-sm font-semibold text-gray-700">パスワード</label>
+        <label for="password" class="block text-left mb-2 text-sm font-semibold text-gray-700">パスワード</label>
         <input
             type="password"
             id="password"
