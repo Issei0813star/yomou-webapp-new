@@ -33,7 +33,7 @@
 import { defineComponent, ref } from 'vue';
 import LoginService, {LoginRequest, LoginResponse} from "@/sevices/LoginService";
 import router from '@/router';
-import { useToast } from 'vue-toastification'
+import { showError, showSuccess } from '@/utils/toastUtil'
 
 export default defineComponent({
   setup() {
@@ -42,7 +42,6 @@ export default defineComponent({
     const userIdentifierError = ref<string>('');
     const passwordError = ref<string>('');
     const emailError = ref<string>('');
-    const toast = useToast();
 
     const validateForm = (): boolean => {
       debugger
@@ -80,19 +79,20 @@ export default defineComponent({
           localStorage.setItem('userId', res.userId.toString());
           localStorage.setItem('token', res.token);
 
+          showSuccess('ログインしました。')
           await router.push('/');
         }
-        catch (error) {
-          //TODO エラーハンドリング
-          errorToast();
+        catch (error :any) {
+          if(error.response) {
+            showError(error.response.data.errorMessage)
+          }
+          else {
+            showError('ログインに失敗しました。')
+          }
           console.error(error);
         }
       }
     };
-
-    const errorToast = () => {
-      toast.error("error");
-    }
 
     return {
       userIdentifier,
@@ -101,7 +101,8 @@ export default defineComponent({
       passwordError,
       emailError,
       login,
-      errorToast
+      showError,
+      showSuccess
     };
   }
 });
