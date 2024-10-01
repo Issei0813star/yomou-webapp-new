@@ -1,37 +1,44 @@
 <template>
-  <div class = "login-container">
-    <h1>ログイン</h1>
-    <form @submit.prevent = "login">
-      <div class = "form-group">
-        <label for = "userIdentifier">ユーザー名もしくはメールアドレス</label>
+  <div class="flex flex-col items-center justify-center min-h-screen bg-blue-50">
+    <h1 class="text-3xl font-extrabold text-blue-600 mb-6">ログイン</h1>
+    <form @submit.prevent="login" class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
+      <div class="form-group mb-6">
+        <label for="userIdentifier" class="block text-sm font-semibold text-gray-700">ユーザー名またはメールアドレス</label>
         <input
-            type = "text"
-            id = "userIdentifier"
+            type="text"
+            id="userIdentifier"
             v-model="userIdentifier"
-            :class = "{ 'is-invalid': userIdentifierError }"
+            :class="['mt-2 block w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500', { 'border-red-500': userIdentifierError }]"
+            placeholder="ユーザー名またはメールアドレス"
         />
-        <span v-if = "userIdentifierError" class = "error-message">{{ userIdentifierError }}</span>
+        <span v-if="userIdentifierError" class="text-red-500 text-sm mt-1">{{ userIdentifierError }}</span>
       </div>
 
-      <div class="form-group">
-        <label for="password">パスワード</label>
+      <div class="form-group mb-6">
+        <label for="password" class="block text-sm font-semibold text-gray-700">パスワード</label>
         <input
             type="password"
             id="password"
             v-model="password"
-            :class="{ 'is-invalid': passwordError }"
+            :class="['mt-2 block w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500', { 'border-red-500': passwordError }]"
+            placeholder="パスワード"
         />
-        <span v-if="passwordError" class="error-message">{{ passwordError }}</span>
+        <span v-if="passwordError" class="text-red-500 text-sm mt-1">{{ passwordError }}</span>
       </div>
 
-      <button type="submit">ログイン</button>
+      <button
+          type="submit"
+          class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        ログイン
+      </button>
     </form>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import LoginService, {LoginRequest, LoginResponse} from "@/sevices/LoginService";
+import LoginService, { LoginRequest, LoginResponse } from "@/sevices/LoginService";
 import router from '@/router';
 import { showError, showSuccess } from '@/utils/toastUtil'
 
@@ -44,7 +51,6 @@ export default defineComponent({
     const emailError = ref<string>('');
 
     const validateForm = (): boolean => {
-      debugger
       let valid = true;
 
       if (!userIdentifier.value) {
@@ -79,15 +85,13 @@ export default defineComponent({
           localStorage.setItem('userId', res.userId.toString());
           localStorage.setItem('token', res.token);
 
-          showSuccess('ログインしました。')
+          showSuccess('ログインしました。');
           await router.push('/');
-        }
-        catch (error :any) {
-          if(error.response) {
-            showError(error.response.data.errorMessage)
-          }
-          else {
-            showError('ログインに失敗しました。')
+        } catch (error: any) {
+          if (error.response) {
+            showError(error.response.data.errorMessage);
+          } else {
+            showError('ログインに失敗しました。');
           }
           console.error(error);
         }
