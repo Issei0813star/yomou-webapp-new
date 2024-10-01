@@ -36,6 +36,7 @@
 
     <div class="w-full max-w-md mt-4">
       <button
+          @click=goToCreateUser
           type="button"
           class="w-[calc(100%*2/3)] bg-white text-blue-600 font-semibold my-5 py-2 border border-blue-600 rounded-md hover:bg-blue-100 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
@@ -107,6 +108,10 @@ export default defineComponent({
       }
     };
 
+    const goToCreateUser = () => {
+      router.push('/user/create')
+    }
+
     return {
       userIdentifier,
       password,
@@ -115,7 +120,8 @@ export default defineComponent({
       emailError,
       login,
       showError,
-      showSuccess
+      showSuccess,
+      goToCreateUser
     };
   }
 });
