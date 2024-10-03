@@ -48,7 +48,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import LoginService, { LoginRequest, LoginResponse } from "@/sevices/LoginService";
+import UserService , { LoginRequest, LoginResponse } from "@/sevices/UserService";
 import router from '@/router';
 import { showError, showSuccess } from '@/utils/toastUtil'
 
@@ -58,7 +58,6 @@ export default defineComponent({
     const password = ref<string>('');
     const userIdentifierError = ref<string>('');
     const passwordError = ref<string>('');
-    const emailError = ref<string>('');
 
     const validateForm = (): boolean => {
       let valid = true;
@@ -79,7 +78,6 @@ export default defineComponent({
     const clearErrors = (): void => {
       userIdentifierError.value = '';
       passwordError.value = '';
-      emailError.value = '';
     };
 
     const login = async (): Promise<void> => {
@@ -90,7 +88,7 @@ export default defineComponent({
             userIdentifier: userIdentifier.value,
             password: password.value
           }
-          const res: LoginResponse = await LoginService.login(req);
+          const res: LoginResponse = await UserService.login(req);
 
           localStorage.setItem('userId', res.userId.toString());
           localStorage.setItem('token', res.token);
@@ -117,7 +115,6 @@ export default defineComponent({
       password,
       userIdentifierError,
       passwordError,
-      emailError,
       login,
       showError,
       showSuccess,
