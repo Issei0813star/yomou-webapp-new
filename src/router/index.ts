@@ -18,6 +18,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/user/create',
     name: 'userCreate',
     component: () => UserCreatePage
+  },
+  {
+    path: '/user/verify',
+    name: 'vefifyUser',
+    component: () => VerifyUserPage
   }
 ]
 
