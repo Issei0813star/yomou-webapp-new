@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomePage from '@/pages/HomePage.vue'
 import LoginPage from "@/pages/LoginPage.vue";
 import UserCreatePage from "@/pages/UserCreatePage.vue";
+import VerifyUserPage from "@/pages/VerifyUserPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
