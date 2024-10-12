@@ -37,6 +37,18 @@
         <span v-if="passwordError" class="text-red-500 text-sm mt-1">{{ passwordError }}</span>
       </div>
 
+      <div class="form-group mb-6">
+        <label for="password" class="block text-left mb-2 text-sm font-semibold text-gray-700">パスワード確認</label>
+        <input
+            type="password"
+            id="password"
+            v-model="confirmPassword"
+            :class="['mt-2 block w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500', { 'border-red-500': passwordError }]"
+            placeholder="パスワード確認"
+        />
+        <span v-if="passwordError" class="text-red-500 text-sm mt-1">{{ passwordError }}</span>
+      </div>
+
       <button
           type="submit"
           class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -57,6 +69,7 @@
       const userName = ref<string>('');
       const email = ref<string>('');
       const password = ref<string>('');
+      const confirmPassword = ref<string>('')
 
       const userNameError = ref<string>('');
       const passwordError = ref<string>('');
@@ -81,6 +94,9 @@
         if(password.value.length < 8 || password.value.length > 20) {
           passwordError.value = 'パスワードは8文字以上20文字以内で入力してください。';
           valid = false;
+        }
+        if(password.value !== confirmPassword.value) {
+          passwordError.value = 'パスワードが一致しません。'
         }
 
         if(!email.value) {
@@ -130,6 +146,7 @@
         userName,
         email,
         password,
+        confirmPassword,
         userNameError,
         emailError,
         passwordError,
