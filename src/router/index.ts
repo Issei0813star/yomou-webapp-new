@@ -3,6 +3,7 @@ import HomePage from '@/pages/HomePage.vue'
 import LoginPage from "@/pages/LoginPage.vue";
 import UserCreatePage from "@/pages/UserCreatePage.vue";
 import VerifyUserPage from "@/pages/VerifyUserPage.vue";
+import ResetPasswordMailSendPage from "@/pages/ResetPasswordMailSendPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -22,8 +23,13 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/user/verify',
-    name: 'vefifyUser',
+    name: 'verifyUser',
     component: () => VerifyUserPage
+  },
+  {
+    path: '/user/password/reset/send',
+    name: 'resetPassword',
+    component: () => ResetPasswordMailSendPage
   }
 ]
 

@@ -23,7 +23,7 @@
             placeholder="パスワード"
         />
         <span v-if="passwordError" class="text-red-500 text-sm mt-1">{{ passwordError }}</span>
-        <div class="text-blue-600 text-right text-xs mt-1">パスワードを忘れた場合</div>
+        <div @click="goToResetPassword" class="text-blue-600 text-right text-xs mt-1">パスワードを忘れた場合</div>
       </div>
 
       <button
@@ -110,6 +110,10 @@ export default defineComponent({
       router.push('/user/create')
     }
 
+    const goToResetPassword = () => {
+      router.push('/user/password/reset')
+    }
+
     return {
       userIdentifier,
       password,
@@ -118,7 +122,8 @@ export default defineComponent({
       login,
       showError,
       showSuccess,
-      goToCreateUser
+      goToCreateUser,
+      goToResetPassword
     };
   }
 });
