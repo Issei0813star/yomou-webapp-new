@@ -1,14 +1,35 @@
 <template>
-  <div class="bg-blue-50 py-10">
+  <div class="flex flex-col items-center justify-center min-h-screen bg-gray-900">
     <TimelinesPost/>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from "vue";
+import {defineComponent, ref, onMounted} from "vue";
 import TimelinesPost from "@/components/TimelinesPost.vue";
+import TimelineService, {getTimelineResponse} from "@/services/TimelineService";
+import { showError } from '@/utils/toastUtil';
 export default defineComponent({
-  components: {TimelinesPost}
+  components: {TimelinesPost},
+  setup() {
+
+    const pageNumber = ref<number>();
+    const postCount = ref<number>();
+    //TODO postクラス作る
+    const posts = ref<object[]>();
+
+    onMounted(async () => {
+      try {
+        const res: getTimelineResponse = await TimelineService.getTimeline();
+        pageNumber.value = res.pageNumber;
+        postCount.value = res.postCount;
+        posts.value = res.posts;
+      }
+      catch (error) {
+        showError('予期せぬエラーが発生。')
+      }
+    })
+  }
 
 })
 </script>

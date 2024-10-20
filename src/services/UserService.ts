@@ -26,6 +26,7 @@ class UserService {
     private apiUrl: string;
 
     constructor() {
+        //TODO あとでプロファイルに突っ込む
         this.apiUrl = 'http://localhost:9000';
     }
 
