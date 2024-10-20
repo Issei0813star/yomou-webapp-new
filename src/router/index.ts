@@ -4,6 +4,7 @@ import LoginPage from "@/pages/LoginPage.vue";
 import UserCreatePage from "@/pages/UserCreatePage.vue";
 import VerifyUserPage from "@/pages/VerifyUserPage.vue";
 import ResetPasswordMailSendPage from "@/pages/ResetPasswordMailSendPage.vue";
+import TimelinePage from "@/pages/TimelinePage.vue"
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -30,7 +31,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/user/password/reset/send',
     name: 'resetPassword',
     component: () => ResetPasswordMailSendPage
-  }
+  },
+  {
+    path: '/post/timeline',
+    name: 'timeline',
+    component: () => TimelinePage
+  },
 ]
 
 const router = createRouter({

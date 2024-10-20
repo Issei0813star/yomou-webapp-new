@@ -39,7 +39,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UserService from '@/sevices/UserService';
+import UserService from '@/services/UserService';
 import { showError, showSuccess } from '@/utils/toastUtil';
 
 export default defineComponent({

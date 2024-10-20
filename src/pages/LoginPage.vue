@@ -1,29 +1,29 @@
 <template>
-  <div class="flex flex-col items-center justify-center min-h-screen bg-blue-50">
-    <form @submit.prevent="login" class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
+  <div class="flex flex-col items-center justify-center min-h-screen bg-gray-900">
+    <form @submit.prevent="login" class="bg-gray-800 shadow-lg rounded-lg p-8 max-w-md w-full">
       <div class="form-group mb-6">
-        <label for="userIdentifier" class="block text-left mb-2 text-sm font-semibold text-gray-700">ユーザー名またはメールアドレス</label>
+        <label for="userIdentifier" class="block text-left mb-2 text-sm font-semibold text-gray-200">ユーザー名またはメールアドレス</label>
         <input
             type="text"
             id="userIdentifier"
             v-model="userIdentifier"
-            :class="['mt-2 block w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500', { 'border-red-500': userIdentifierError }]"
+            :class="['mt-2 block w-full p-3 border rounded-md bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500', { 'border-red-500': userIdentifierError }]"
             placeholder="ユーザー名またはメールアドレス"
         />
         <span v-if="userIdentifierError" class="text-red-500 text-sm mt-1">{{ userIdentifierError }}</span>
       </div>
 
       <div class="form-group mb-6">
-        <label for="password" class="block text-left mb-2 text-sm font-semibold text-gray-700">パスワード</label>
+        <label for="password" class="block text-left mb-2 text-sm font-semibold text-gray-200">パスワード</label>
         <input
             type="password"
             id="password"
             v-model="password"
-            :class="['mt-2 block w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500', { 'border-red-500': passwordError }]"
+            :class="['mt-2 block w-full p-3 border rounded-md bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500', { 'border-red-500': passwordError }]"
             placeholder="パスワード"
         />
         <span v-if="passwordError" class="text-red-500 text-sm mt-1">{{ passwordError }}</span>
-        <div @click="goToResetPassword" class="text-blue-600 text-right text-xs mt-1">パスワードを忘れた場合</div>
+        <div @click="goToResetPassword" class="text-blue-400 text-right text-xs mt-1 cursor-pointer hover:underline">パスワードを忘れた場合</div>
       </div>
 
       <button
@@ -36,9 +36,9 @@
 
     <div class="w-full max-w-md mt-4">
       <button
-          @click=goToCreateUser
+          @click="goToCreateUser"
           type="button"
-          class="w-[calc(100%*2/3)] bg-white text-blue-600 font-semibold my-5 py-2 border border-blue-600 rounded-md hover:bg-blue-100 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full bg-gray-800 text-blue-600 font-semibold my-5 py-2 border border-blue-600 rounded-md hover:bg-gray-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         新しいアカウントを作成
       </button>
@@ -48,9 +48,9 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UserService , { LoginRequest, LoginResponse } from "@/sevices/UserService";
+import UserService, { LoginRequest, LoginResponse } from "@/services/UserService";
 import router from '@/router';
-import { showError, showSuccess } from '@/utils/toastUtil'
+import { showError, showSuccess } from '@/utils/toastUtil';
 
 export default defineComponent({
   setup() {
@@ -107,12 +107,12 @@ export default defineComponent({
     };
 
     const goToCreateUser = () => {
-      router.push('/user/create')
-    }
+      router.push('/user/create');
+    };
 
     const goToResetPassword = () => {
-      router.push('/user/password/reset')
-    }
+      router.push('/user/password/reset');
+    };
 
     return {
       userIdentifier,
