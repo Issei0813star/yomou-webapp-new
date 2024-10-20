@@ -10,7 +10,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: HomePage
+    component: HomePage,
+    meta: { requireAuth: true }
   },
   {
     path: '/login',
@@ -25,7 +26,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/user/verify',
     name: 'verifyUser',
-    component: () => VerifyUserPage
+    component: () => VerifyUserPage,
+    meta: { requireAuth: true }
   },
   {
     path: '/user/password/reset/send',
@@ -35,13 +37,26 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/post/timeline',
     name: 'timeline',
-    component: () => TimelinePage
+    component: () => TimelinePage,
+    meta: { requireAuth: true }
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+//TODO tokenの有効期限検証
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token');
+
+  if(to.meta.requireAuth && !token) {
+    next({name: 'login'})
+  }
+  else {
+    next()
+  }
 })
 
 export default router
