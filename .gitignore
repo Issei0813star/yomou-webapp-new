@@ -24,4 +24,4 @@ pnpm-debug.log*
 
 .env.development
 
-config.js
+config.ts
