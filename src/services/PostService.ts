@@ -1,6 +1,5 @@
-import axios from "axios";
-import {list} from "postcss";
-import {LoginResponse} from "@/services/UserService";
+import axios, {AxiosResponse} from "axios";
+import {getRequest, postRequest} from "@/api/apiInterface";
 
 export interface getTimelineResponse {
     pageNumber: number,
@@ -8,25 +7,7 @@ export interface getTimelineResponse {
     posts: object[]
 }
 
-class PostService {
-    private apiUrl: string;
-
-    constructor() {
-        //TODO あとでプロファイルに突っ込む
-        this.apiUrl = 'http://localhost:9000';
-    }
-
-    async getTimeline(): Promise<getTimelineResponse> {
-        const token = localStorage.getItem('token')
-        const response = await axios.post<getTimelineResponse>(`${this.apiUrl}/post/timeline`, {}, {
-            headers: {
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            }
-        });
-
-        return response.data;
-    }
+export async function getTimeline(): Promise<getTimelineResponse> {
+    const response: AxiosResponse<getTimelineResponse> = await postRequest('post/timeline', {})
+    return response.data;
 }
-
-export default new PostService()
