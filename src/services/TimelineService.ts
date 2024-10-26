@@ -17,7 +17,14 @@ class TimelineService {
     }
 
     async getTimeline(): Promise<getTimelineResponse> {
-        const response = await axios.post<getTimelineResponse>(`${this.apiUrl}/post/posts`, );
+        const token = localStorage.getItem('token')
+        const response = await axios.post<getTimelineResponse>(`${this.apiUrl}/post/posts`, {}, {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
+        });
+
         return response.data;
     }
 }
