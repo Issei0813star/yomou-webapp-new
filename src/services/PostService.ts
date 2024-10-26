@@ -8,7 +8,7 @@ export interface getTimelineResponse {
     posts: object[]
 }
 
-class TimelineService {
+class PostService {
     private apiUrl: string;
 
     constructor() {
@@ -18,7 +18,7 @@ class TimelineService {
 
     async getTimeline(): Promise<getTimelineResponse> {
         const token = localStorage.getItem('token')
-        const response = await axios.post<getTimelineResponse>(`${this.apiUrl}/post/posts`, {}, {
+        const response = await axios.post<getTimelineResponse>(`${this.apiUrl}/post/timeline`, {}, {
             headers: {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json'
@@ -29,4 +29,4 @@ class TimelineService {
     }
 }
 
-export default new TimelineService()
+export default new PostService()

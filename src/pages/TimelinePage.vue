@@ -7,7 +7,7 @@
 <script lang="ts">
 import {defineComponent, ref, onMounted} from "vue";
 import TimelinesPost from "@/components/TimelinesPost.vue";
-import TimelineService, {getTimelineResponse} from "@/services/TimelineService";
+import PostService , {getTimelineResponse} from "@/services/PostService";
 import { showError } from '@/utils/toastUtil';
 export default defineComponent({
   components: {TimelinesPost},
@@ -20,7 +20,7 @@ export default defineComponent({
 
     onMounted(async () => {
       try {
-        const res: getTimelineResponse = await TimelineService.getTimeline();
+        const res: getTimelineResponse = await PostService.getTimeline();
         pageNumber.value = res.pageNumber;
         postCount.value = res.postCount;
         posts.value = res.posts;
