@@ -1,5 +1,7 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import config from "@/config";
+import {showError} from "@/utils/toastUtil";
+import router from "@/router"
 
 const axiosInstance = axios.create({
     baseURL: config.API_BASE_URL,
@@ -54,3 +56,13 @@ export async function postRequest<T>(url: string, data: object): Promise<AxiosRe
     }
     return apiRequest(config);
 }
+
+axiosInstance.interceptors.response.use(
+    response => response,
+    error => {
+        if(error.response && error.response.status == 403) {
+            showError('再度ログインして下さい。')
+            router.push('/login')
+        }
+    }
+)

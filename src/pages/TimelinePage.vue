@@ -26,7 +26,7 @@ export default defineComponent({
         posts.value = res.posts;
       }
       catch (error) {
-        showError('予期せぬエラーが発生。')
+        console.error(error)
       }
     })
   }
