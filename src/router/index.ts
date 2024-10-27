@@ -5,6 +5,8 @@ import UserCreatePage from "@/pages/UserCreatePage.vue";
 import VerifyUserPage from "@/pages/VerifyUserPage.vue";
 import ResetPasswordMailSendPage from "@/pages/ResetPasswordMailSendPage.vue";
 import TimelinePage from "@/pages/TimelinePage.vue"
+import {isTokenExpired} from "@/utils/jwtUtil";
+import {showError} from "@/utils/toastUtil";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -47,11 +49,11 @@ const router = createRouter({
   routes
 })
 
-//TODO tokenの有効期限検証
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
 
-  if(to.meta.requireAuth && !token) {
+  if(to.meta.requireAuth && (!token || isTokenExpired(token))) {
+    showError('トークンの有効期限が切れています。再度ログインしてください。')
     next({name: 'login'})
   }
   else {
