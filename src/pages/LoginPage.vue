@@ -94,7 +94,7 @@ export default defineComponent({
           localStorage.setItem('token', res.token);
 
           showSuccess('ログインしました。');
-          await router.push('/');
+          await router.push('/post/timeline');
         } catch (error: any) {
           if (error.response) {
             showError(error.response.data.errorMessage);
