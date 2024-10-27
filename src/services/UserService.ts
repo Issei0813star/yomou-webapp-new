@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {getRequest, postRequest} from "@/api/apiInterface";
 
 export interface LoginRequest {
     userIdentifier: string;
@@ -22,23 +22,12 @@ export interface UserCreateResponse {
     email: string
 }
 
-class UserService {
-    private apiUrl: string;
-
-    constructor() {
-        //TODO あとでプロファイルに突っ込む
-        this.apiUrl = 'http://localhost:9000';
-    }
-
-    async login(request: LoginRequest): Promise<LoginResponse> {
-        const response = await axios.post<LoginResponse>(`${this.apiUrl}/user/login`, request);
-        return response.data;
-    }
-
-    async create(request: UserCreateRequest): Promise<UserCreateResponse> {
-        const response = await axios.post<UserCreateResponse>(`${this.apiUrl}/user`, request)
-        return response.data
-    }
+export async function userLogin(request: LoginRequest): Promise<LoginResponse> {
+    const response = await postRequest<LoginResponse>('/user/login', request);
+    return response.data;
 }
 
-export default new UserService();
+export async function createUser(request: UserCreateRequest): Promise<UserCreateResponse> {
+    const response = await postRequest<UserCreateResponse>('/user/create', request)
+    return response.data
+}

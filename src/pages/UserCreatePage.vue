@@ -61,7 +61,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import UserService, { UserCreateRequest } from "@/services/UserService";
+import { UserCreateRequest, createUser } from "@/services/UserService";
 import { showError, showSuccess } from "@/utils/toastUtil";
 
 export default defineComponent({
@@ -129,7 +129,7 @@ export default defineComponent({
             password: password.value
           };
 
-          const res = await UserService.create(req);
+          const res = await createUser(req);
           showSuccess('アカウントの作成に成功しました。');
         } catch (error: any) {
           if (error.response) {

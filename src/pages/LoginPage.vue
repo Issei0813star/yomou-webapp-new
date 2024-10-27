@@ -48,7 +48,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UserService, { LoginRequest, LoginResponse } from "@/services/UserService";
+import { LoginRequest, LoginResponse, userLogin } from "@/services/UserService";
 import router from '@/router';
 import { showError, showSuccess } from '@/utils/toastUtil';
 
@@ -88,7 +88,7 @@ export default defineComponent({
             userIdentifier: userIdentifier.value,
             password: password.value
           }
-          const res: LoginResponse = await UserService.login(req);
+          const res: LoginResponse = await userLogin(req);
 
           localStorage.setItem('userId', res.userId.toString());
           localStorage.setItem('token', res.token);
