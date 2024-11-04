@@ -15,8 +15,8 @@ export default defineComponent({
 
     const pageNumber = ref<number>();
     const postCount = ref<number>();
-    //TODO postクラス作る
     const posts = ref<object[]>();
+    console.log(posts)
 
     onMounted(async () => {
       try {
