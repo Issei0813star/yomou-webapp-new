@@ -1,10 +1,11 @@
 import axios, {AxiosResponse} from "axios";
 import {getRequest, postRequest} from "@/api/apiInterface";
+import { Post } from "@/types";
 
 export interface getTimelineResponse {
     pageNumber: number,
     postCount: number,
-    posts: object[]
+    posts: Post[]
 }
 
 export async function getTimeline(): Promise<getTimelineResponse> {
