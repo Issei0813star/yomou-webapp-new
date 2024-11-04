@@ -3,10 +3,7 @@
     <h1 class="text-left text-3xl font-extrabold pb-3">
       {{ props.post.bookTitle }}
     </h1>
-    <p class="text-left border-b border-gray-600">
-      <span>ここに星を出す</span>
-      <span class="pl-2">{{ props.post.reviewPoint }}</span>
-    </p>
+    <ReviewPoint :review-point="props.post.reviewPoint" />
     <h2 class="text-left text-xl font-bold pb-2 pt-4">
       {{ props.post.header }}
     </h2>
@@ -21,6 +18,7 @@
 
 import { defineProps } from 'vue';
 import {Post} from "@/types"
+import ReviewPoint from "@/components/ReviewPoint.vue";
 
 const props = defineProps<{ post: Post }>();
 
