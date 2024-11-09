@@ -1,8 +1,13 @@
 <template>
-  <router-view/>
+  <AppHeader />
+  <router-view />
 </template>
 
-<style>
+<script setup lang="ts">
+import AppHeader from '@/components/AppHeader.vue';
+</script>
+
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
