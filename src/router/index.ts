@@ -49,16 +49,16 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token');
-
-  if(to.meta.requireAuth && (!token || isTokenExpired(token))) {
-    showError('トークンの有効期限が切れています。再度ログインしてください。')
-    next({name: 'login'})
-  }
-  else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   const token = localStorage.getItem('token');
+//
+//   if(to.meta.requireAuth && (!token || isTokenExpired(token))) {
+//     showError('トークンの有効期限が切れています。再度ログインしてください。')
+//     next({name: 'login'})
+//   }
+//   else {
+//     next()
+//   }
+// })
 
 export default router
