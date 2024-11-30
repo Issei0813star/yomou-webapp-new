@@ -17,9 +17,15 @@
 <script setup lang="ts">
 
 import { defineProps } from 'vue';
+import { getBookInfo } from "@/services/GoogleBooksService";
 import {Post} from "@/types"
 import ReviewPoint from "@/components/ReviewPoint.vue";
+import { ref, onMounted } from "vue";
 
 const props = defineProps<{ post: Post }>();
+
+onMounted(async() => {
+  const searchBooksRes = getBookInfo(props.post.bookTitle)
+})
 
 </script>

@@ -10,11 +10,32 @@ const axiosInstance = axios.create({
     },
 });
 
+const axiosInstanceForGoogleBooks = axios.create({
+    baseURL: config.API_GOOGLE_BOOKS_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+
 async function apiRequest<T>(
     config: AxiosRequestConfig
 ): Promise<AxiosResponse<T>> {
     try {
         return await axiosInstance.request<T>(config);
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.error(error.message);
+            throw error;
+        }
+        throw new Error('予期せぬエラー');
+    }
+}
+
+async function apiRequestForGoogleBooks<T>(
+    config: AxiosRequestConfig
+): Promise<AxiosResponse<T>> {
+    try {
+        return await axiosInstanceForGoogleBooks.request<T>(config);
     } catch (error) {
         if (axios.isAxiosError(error)) {
             console.error(error.message);
@@ -55,6 +76,17 @@ export async function postRequest<T>(url: string, data: object): Promise<AxiosRe
         }
     }
     return apiRequest(config);
+}
+
+export async function getRequestForGoogleBooks<T>(bookTitle: string): Promise<AxiosResponse<T>> {
+    const params: object = {
+        q: bookTitle
+    }
+    const config: AxiosRequestConfig = {
+        method: 'get',
+        params: params
+    }
+    return apiRequestForGoogleBooks(config)
 }
 
 axiosInstance.interceptors.response.use(
